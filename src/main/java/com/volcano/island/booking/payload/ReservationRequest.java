@@ -1,6 +1,7 @@
 package com.volcano.island.booking.payload;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.volcano.island.booking.validation.PeriodDateValidator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Future;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@PeriodDateValidator(message = "Invalid reservation days.")
 public class ReservationRequest {
 
     @NotBlank

@@ -6,6 +6,7 @@ import com.volcano.island.booking.model.Reservation;
 import com.volcano.island.booking.model.StatusName;
 import com.volcano.island.booking.payload.ReservationRequest;
 import com.volcano.island.booking.repository.ReservationRepository;
+import com.volcano.island.booking.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,9 @@ public class ReservationController {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ReservationService reservationService;
 
 
     /**
@@ -39,16 +43,7 @@ public class ReservationController {
     @PostMapping()
     public Reservation bookReservation(@Valid @RequestBody ReservationRequest reservationRequest) {
 
-        Reservation reservation = new Reservation(reservationRequest.getCheckInDate(),
-                reservationRequest.getCheckoutDate());
-
-        Guest guest = new Guest(reservationRequest.getGuestFirstName(), reservationRequest.getGuestLastName(),
-                reservationRequest.getEmail());
-
-        reservation.setGuest(guest);
-
-        reservation = reservationRepository.save(reservation);
-        return reservation;
+        return reservationService.create(reservationRequest);
     }
 
     /**
