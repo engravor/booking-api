@@ -1,6 +1,7 @@
 package com.volcano.island.booking.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -21,8 +22,18 @@ public class Guest implements Serializable {
     private String lastName;
 
     @NotBlank
+    @Email
     @Column(length = 50)
     private String email;
+
+    public Guest() {
+    }
+
+    public Guest(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
