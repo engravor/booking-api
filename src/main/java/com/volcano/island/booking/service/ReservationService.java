@@ -74,6 +74,13 @@ public class ReservationService {
     }
 
     public List<LocalDate> findAvailableDates(LocalDate from, LocalDate to) {
+        if (from == null) {
+            from = LocalDate.now().plusDays(1);
+        }
+
+        if (to == null) {
+            to = from.plusMonths(1);
+        }
 
         if (from.isAfter(to)) {
             throw new BadRequestException("Check-in date can not be after Check-out date.");

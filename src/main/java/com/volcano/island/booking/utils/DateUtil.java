@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public class DateUtil {
 
 
-    public static final List<LocalDate> getDateRange(LocalDate start, LocalDate end) {
+    public static List<LocalDate> getDateRange(LocalDate start, LocalDate end) {
 
         final int days = (int) start.until(end, ChronoUnit.DAYS);
 

@@ -3,17 +3,17 @@ package com.volcano.island.booking.payload;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 public class AvailabilityRequest {
 
-    @NotNull
+    @Null
     @Future
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
     private LocalDate checkInDate;
 
-    @NotNull
+    @Null
     @Future
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
     private LocalDate checkoutDate;
