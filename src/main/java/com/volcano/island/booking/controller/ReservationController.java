@@ -1,7 +1,6 @@
 package com.volcano.island.booking.controller;
 
 import com.volcano.island.booking.exception.ResourceNotFoundException;
-import com.volcano.island.booking.model.Guest;
 import com.volcano.island.booking.model.Reservation;
 import com.volcano.island.booking.model.StatusName;
 import com.volcano.island.booking.payload.ReservationRequest;
@@ -56,19 +55,7 @@ public class ReservationController {
     @PatchMapping("/{reservationId}")
     public Reservation updateReservation(@PathVariable("reservationId") Long reservationId, @RequestBody ReservationRequest reservationRequest) {
 
-        Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Reservation", "reservationId", reservationId));
-
-        if (reservationRequest.getCheckInDate() != null) {
-            reservation.setCheckIn(reservationRequest.getCheckInDate());
-        }
-
-        if (reservationRequest.getCheckoutDate() != null) {
-            reservation.setCheckIn(reservationRequest.getCheckoutDate());
-        }
-
-        Reservation updatedReservation = reservationRepository.save(reservation);
-        return updatedReservation;
+        return reservationService.update(reservationId, reservationRequest);
     }
 
     /**
