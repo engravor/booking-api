@@ -16,6 +16,15 @@ public class ReservationCheckValidator implements ConstraintValidator<PeriodDate
         // Nothing here
     }
 
+    /**
+     * This validates that Reservation params are valid in order to its creation.
+     * It validates: that the check-out date is greater than check-in dates. That period of reservation is not superior to
+     * 3 days and that reservation is minimum 1 day(s) ahead of arrival and up to 1 month in advance.
+     *
+     * @param reservationRequest
+     * @param constraintValidatorContext
+     * @return boolean
+     */
     @Override
     public boolean isValid(ReservationRequest reservationRequest, ConstraintValidatorContext constraintValidatorContext) {
         LocalDate checkInDate = reservationRequest.getCheckInDate();

@@ -22,6 +22,18 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    /**
+     * Creates a new Reservation in the database.
+     * <p>
+     * Concurrent requests:
+     * In order to allow concurrent requests avoiding overlaping over reservations, the key word synchronized is used. This will
+     * help to avoid that multiple threads try to create a reservation at the same time. Nevertheless if this app is run with multiple
+     * instances, this will not avoid the overlaping. For that it will be needed a shared lock, for example using Distributed locks with Redis
+     * or something like that.
+     *
+     * @param reservationRequest
+     * @return Reservation
+     */
     public synchronized Reservation create(final ReservationRequest reservationRequest) {
         List<Reservation> reservations = reservationRepository.findReservationBetweenDays(reservationRequest.getCheckInDate(), reservationRequest.getCheckoutDate());
         if (reservations.size() > 0) {
@@ -40,7 +52,19 @@ public class ReservationService {
 
     }
 
-    public Reservation update(Long reservationId, final ReservationRequest reservationRequest) {
+    /**
+     * Updates Reservation for the provided ID in the database.
+     * <p>
+     * Concurrent requests:
+     * In order to allow concurrent requests avoiding overlaping over reservations, the key word synchronized is used. This will
+     * help to avoid that multiple threads try to create a reservation at the same time. Nevertheless if this app is run with multiple
+     * instances, this will not avoid the overlaping. For that it will be needed a shared lock, for example using Distributed locks with Redis
+     * or something like that.
+     *
+     * @param reservationRequest
+     * @return Reservation
+     */
+    public synchronized Reservation update(Long reservationId, final ReservationRequest reservationRequest) {
 
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation", "reservationId", reservationId));
@@ -73,6 +97,14 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    /**
+     * Retrieve a list of available dates to make reservations for a provided period of time. If the period is not
+     * provided it will return the available dates for 1 month.
+     *
+     * @param from
+     * @param to
+     * @return List<LocalDate>
+     */
     public List<LocalDate> findAvailableDates(LocalDate from, LocalDate to) {
         if (from == null) {
             from = LocalDate.now().plusDays(1);

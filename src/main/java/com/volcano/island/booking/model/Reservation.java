@@ -16,6 +16,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a reservation. It contains an unique identifier (id) which will allow every operation over it.
+ */
 @Entity
 @Table(name = "reservations")
 @EntityListeners(AuditingEntityListener.class)

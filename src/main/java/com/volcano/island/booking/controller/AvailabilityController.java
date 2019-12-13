@@ -19,6 +19,12 @@ public class AvailabilityController {
     @Autowired
     private ReservationService reservationService;
 
+    /**
+     * Search available dates for a provided range of dates. If dates not provided the default period is 1 month.
+     *
+     * @param availabilityRequest
+     * @return ResponseEntity<List<LocalDate>>
+     */
     @PostMapping
     public ResponseEntity<List<LocalDate>> searchAvailableDates(@RequestBody AvailabilityRequest availabilityRequest) {
         List<LocalDate> daysAvailable = reservationService.findAvailableDates(availabilityRequest.getCheckInDate(),

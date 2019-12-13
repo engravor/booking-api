@@ -5,6 +5,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
+/**
+ * Entity representing guests. Every Reservation is associated to one guest.
+ */
 @Entity
 @Table(name = "guests")
 public class Guest implements Serializable {
