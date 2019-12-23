@@ -22,6 +22,10 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    public ReservationService(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
+
     /**
      * Creates a new Reservation in the database.
      * <p>
@@ -70,7 +74,7 @@ public class ReservationService {
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation", "reservationId", reservationId));
 
         if (reservation.getStatus() == StatusName.CANCELLED) {
-            throw new BadRequestException("The reservation is already Cancelled. It cannot be uodated.");
+            throw new BadRequestException("The reservation is already Cancelled. It cannot be updated.");
         }
 
         List<Reservation> reservations = reservationRepository.findReservationBetweenDays(reservationRequest.getCheckInDate(), reservationRequest.getCheckoutDate());

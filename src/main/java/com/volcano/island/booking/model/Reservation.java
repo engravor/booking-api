@@ -39,6 +39,7 @@ public class Reservation implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
+    @JsonIgnore
     private StatusName status;
 
     @Column(nullable = false, updatable = false)

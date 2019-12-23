@@ -32,6 +32,17 @@ public class ReservationRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate checkoutDate;
 
+    public ReservationRequest() {
+    }
+
+    public ReservationRequest(@NotBlank String guestFirstName, @NotBlank String guestLastName, @NotBlank @Email String email, @NotNull @Future LocalDate checkInDate, @NotNull @Future LocalDate checkoutDate) {
+        this.guestFirstName = guestFirstName;
+        this.guestLastName = guestLastName;
+        this.email = email;
+        this.checkInDate = checkInDate;
+        this.checkoutDate = checkoutDate;
+    }
+
     public String getGuestFirstName() {
         return guestFirstName;
     }
